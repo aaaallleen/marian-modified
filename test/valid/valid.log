@@ -1,0 +1,8 @@
+[2024-07-02 13:36:27] [valid] Ep. 500 : Up. 500 : translation : 0.0721 : new best
+[2024-07-02 13:36:27] [valid] Ep. 500 : Up. 500 : cross-entropy : 252.426 : new best
+[2024-07-02 13:47:00] [valid] Ep. 1000 : Up. 1000 : translation : 87.609 : new best
+[2024-07-02 13:47:01] [valid] Ep. 1000 : Up. 1000 : cross-entropy : 63.527 : new best
+[2024-07-02 13:57:59] [valid] Ep. 1500 : Up. 1500 : translation : 96.1553 : new best
+[2024-07-02 13:57:59] [valid] Ep. 1500 : Up. 1500 : cross-entropy : 55.3514 : new best
+[2024-07-02 14:08:04] [valid] Ep. 2000 : Up. 2000 : translation : 0 : stalled 1 times (last best: 96.1553)
+[2024-07-02 14:08:05] [valid] Ep. 2000 : Up. 2000 : cross-entropy : 30.0147 : new best

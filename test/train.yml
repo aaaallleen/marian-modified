@@ -1,0 +1,28 @@
+train-sets:
+  - corpus.tok.zh
+  - corpus.tok.aus
+vocabs:
+  - vocab.yml
+  - vocab.yml
+model: ./checkpoint/transformer.npz
+log: ./checkpoint/training.log
+valid-log: ./valid/valid.log
+log-time-zone: Asia/Taipei
+valid-sets:
+  - valid.tok.zh
+  - valid.tok.aus
+valid-metrics:
+  - translation
+  - cross-entropy
+valid-script-path: ./validation.sh
+valid-freq: 500u
+save-freq: 500u
+task: transformer-base
+guided-alignment: corpus.align
+max-length: 200
+workspace: 5500
+mini-batch-fit: true  
+seed: 1000
+after: 5000e
+no-reload: true
+num-devices: 1

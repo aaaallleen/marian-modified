@@ -1,12 +1,17 @@
-#include "data/corpus.h"
-
+#include "data/corpus.h"        
 #include <numeric>
+
 #include <random>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "common/utils.h"
 #include "common/filesystem.h"
 
-#include "data/corpus.h"
 #include "data/factored_vocab.h"
 
 namespace marian {
@@ -21,7 +26,7 @@ Corpus::Corpus(Ptr<Options> options, bool translate /*= false*/, size_t seed /*=
   auto numThreads = options_->get<size_t>("data-threads", 1);
   if(numThreads > 1)
     threadPool_.reset(new ThreadPool(numThreads));
-
+  replacement_map = replacementMap();
 }
 
 Corpus::Corpus(std::vector<std::string> paths,
@@ -36,10 +41,18 @@ Corpus::Corpus(std::vector<std::string> paths,
   auto numThreads = options_->get<size_t>("data-threads", 1);
   if(numThreads > 1)
     threadPool_.reset(new ThreadPool(numThreads));
-
+  replacement_map = replacementMap();
 }
 
 void Corpus::preprocessLine(std::string& line, size_t streamId, size_t lineId, bool& altered) {
+  
+  auto line_tokens = utils::split(line, " ");
+  for (size_t i = 0; i < line_tokens.size(); i++) {
+    if (replacement_map.Map.find(line_tokens[i]) != replacement_map.Map.end()) 
+      line_tokens[i] = replacement_map.Map[line_tokens[i]];
+  }
+  line = utils::join(line_tokens, " ");
+
   bool isFactoredVocab = vocabs_.back()->tryAs<FactoredVocab>() != nullptr;
   altered = false; 
   if (allCapsEvery_ != 0 && lineId % allCapsEvery_ == 0 && !inference_) {
@@ -165,6 +178,7 @@ SentenceTuple Corpus::next() {
 // Call either reset() or shuffle().
 // @TODO: merge with reset() below to clarify mutual exclusiveness with reset()
 void Corpus::shuffle() {
+  replacement_map.shuffle_and_update();
   shuffleData(paths_);
 }
 
@@ -280,6 +294,7 @@ void Corpus::shuffleData(const std::vector<std::string>& paths) {
 
 CorpusBase::batch_ptr Corpus::toBatch(const std::vector<Sample>& batchVector) {
   size_t batchSize = batchVector.size();
+
 
   std::vector<size_t> sentenceIds;
 

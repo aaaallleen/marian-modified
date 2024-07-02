@@ -6,13 +6,13 @@
 #include "common/utils.h"
 #include "common/filesystem.h"
 
-#include <algorithm>
+// #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <unordered_map>
-#include <unordered_set>
-
+// #include <unordered_map>
+// #include <unordered_set>
+// #include <random>
 namespace marian {
 
 class DefaultVocab : public IVocab {

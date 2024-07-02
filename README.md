@@ -58,6 +58,12 @@ More information on https://marian-nmt.github.io
 - [Installation and usage documentation](https://marian-nmt.github.io/docs)
 - [Usage examples](https://marian-nmt.github.io/examples)
 
+## Changes Made 
+Added a token pool for name entities: 
+<name0> ~ <name9>
+This implementation could be found in src/data/replacement_map.cpp
+We also modified the preproces_Line function in src/data/corpus.cpp to perform replace when preprocessing lines.
+
 ## Acknowledgements
 
 The development of Marian received funding from the European Union's

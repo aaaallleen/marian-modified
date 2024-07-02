@@ -13,7 +13,7 @@
 #include "data/corpus_base.h"
 #include "data/dataset.h"
 #include "data/vocab.h"
-
+#include "data/replacement_map.h"
 namespace marian {
 namespace data {
 
@@ -21,7 +21,7 @@ class Corpus : public CorpusBase {
 private:
   std::vector<UPtr<io::TemporaryFile>> tempFiles_;
   std::vector<size_t> ids_;
-  
+
   UPtr<ThreadPool> threadPool_; // thread pool for parallelized data reading
 
   // for shuffle-in-ram
@@ -58,6 +58,8 @@ public:
   Sample next() override;
 
   void shuffle() override;
+
+  replacementMap replacement_map;
 
   void reset() override;
 

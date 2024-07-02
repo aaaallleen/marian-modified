@@ -33,6 +33,7 @@ set(MARIAN_SOURCES
   common/signal_handling.cpp
   common/types.cpp
 
+  data/replacement_map.cpp
   data/alignment.cpp
   data/vocab.cpp
   data/default_vocab.cpp

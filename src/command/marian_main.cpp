@@ -1,3 +1,4 @@
+
 #include "marian.h"
 
 // This contains the main function for the aggregate command line that allows to specify
